@@ -1,0 +1,318 @@
+{
+	"info": {
+		"_postman_id": "7742c156-a969-4aa1-863e-a6888a9b0446",
+		"name": "k8training",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5834087"
+	},
+	"item": [
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Simple API for testing purpose",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/greeting",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"greeting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gets all posts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gets post’s data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/posts/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"posts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uploads a new post",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"authorId\": 5,\r\n    \"text\": \"Hi friends, I recently watched amazing movie at the cinema 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/posts",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update post’s data",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Hi friends, I recently watched amazing movie at the cinema 2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/posts/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"posts",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a post",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/posts/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"posts",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Simple API for testing purpose",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/greeting",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"greeting"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gets all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gets user’s data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/users/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Uploads a new user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Tom\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user’s data",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"TomTom\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/users/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/users/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Increment posts amount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/users/5/increment",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users",
+								"5",
+								"increment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Decrement posts amount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/users/5/decrement",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"users",
+								"5",
+								"decrement"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
