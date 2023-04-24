@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -26,7 +26,7 @@ public class Post {
     private String text;
 
     @Column(name = "CREATED_AT")
-    private LocalDateTime postedAt = LocalDateTime.now();
+    private LocalDate postedAt = LocalDate.now();
 
     public Post() {
     }
@@ -34,7 +34,7 @@ public class Post {
     public Post(Long authorId, String text) {
         this.authorId = authorId;
         this.text = text;
-        this.postedAt = LocalDateTime.now();
+        this.postedAt = LocalDate.now();
     }
 
     public Long getId() {
@@ -61,11 +61,11 @@ public class Post {
         this.text = text;
     }
 
-    public LocalDateTime getPostedAt() {
+    public LocalDate getPostedAt() {
         return postedAt;
     }
 
-    public void setPostedAt(LocalDateTime postedAt) {
+    public void setPostedAt(LocalDate postedAt) {
         this.postedAt = postedAt;
     }
 

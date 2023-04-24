@@ -2,9 +2,11 @@
 Trainings: Kubernetes for Java Engineers
 
 # postgresql
-docker build -t my-postgresql-image .
+docker build -t postgresql-image-users . -f DockerfileDBUsers
+docker run -p 5433:5432 --name postgresql-container-users -d postgresql-image-users
 
-docker run -p 5432:5432 --name my-postgresql-container -d my-postgresql-image
+docker build -t postgresql-image-posts . -f DockerfileDBPosts
+docker run -p 5434:5432 --name postgresql-container-posts -d postgresql-image-posts
 
 # post service
 

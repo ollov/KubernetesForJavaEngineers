@@ -1,5 +1,6 @@
 package epam.training.kubernetes.user.services;
 
+import epam.training.kubernetes.user.exceptions.LimitReachedException;
 import epam.training.kubernetes.user.repositories.UserRepository;
 import epam.training.kubernetes.user.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,7 @@ public class UserService implements IUserService {
         } else {
             return false;
         }
+        //TODO Either do not remove user if there are posts or remove all posts for consistency
     }
 
     @Override
@@ -69,10 +71,15 @@ public class UserService implements IUserService {
     private boolean updateAmountOfPosts(final Long id, final int delta) {
         final User existingUser = userRepository.findById(id).orElse(null);
         if (existingUser != null) {
-            Long amountOfPosts = existingUser.getAmountOfPosts();
-            existingUser.setAmountOfPosts(amountOfPosts + delta);
-            userRepository.save(existingUser);
-            return true;
+            final long amountOfPosts = existingUser.getAmountOfPosts() + delta;
+            if(amountOfPosts >= 0 && amountOfPosts <= Integer.MAX_VALUE) {
+                existingUser.setAmountOfPosts(amountOfPosts);
+                userRepository.save(existingUser);
+                return true;
+            }
+            else {
+                throw new LimitReachedException(delta == 1 ? "maximun" : "minimum");
+            }
         }
         return false;
     }
