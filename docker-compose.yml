@@ -30,8 +30,6 @@ services:
     container_name: container-users
     ports:
       - "8082:8080"
-#    links:
-#      - postgresUsers
     depends_on:
       - postgresql-container-users
     environment:
@@ -45,8 +43,6 @@ services:
     container_name: container-posts
     ports:
       - "8081:8080"
-    #    links:
-    #      - postgresUsers
     depends_on:
       - postgresql-container-posts
     environment:
