@@ -24,9 +24,9 @@ to verify on local :
 to build
 
     ./mvnw clean package -Dspring.profiles.active=local
-    docker build -t ooo4u/post-service-1.0.0 ./
+    docker build -t ooo4u/post-service:1.0.0 ./
     docker login
-    docker push ooo4u/post-service-1.0.0
+    docker push ooo4u/post-service:1.0.0
     docker run -ti --network my-network -e SPRING_PROFILES_ACTIVE=docker -e DB_URL=jdbc:postgresql://postgresql-container-posts:5432/k8training -e DB_USER=user -e DB_PASSWORD=password -e USERS_URL=http://container-user:8080 -p 8081:8080 --name container-post -d ooo4u/post-service-1.0.0
 
 
@@ -39,9 +39,9 @@ to verify on local :
 to build
 
     ./mvnw clean package -Dspring.profiles.active=local
-    docker build -t ooo4u/user-service-1.0.0 ./
+    docker build -t ooo4u/user-service:1.0.0 ./
     docker login
-    docker push ooo4u/user-service-1.0.0
+    docker push ooo4u/user-service:1.0.0
     docker run -ti --network my-network -e SPRING_PROFILES_ACTIVE=docker -e DB_URL=jdbc:postgresql://postgresql-container-users:5432/k8training -e DB_USER=user -e DB_PASSWORD=password -p 8082:8080 --name container-user -d ooo4u/user-service-1.0.0
 
 

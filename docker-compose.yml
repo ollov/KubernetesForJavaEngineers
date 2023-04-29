@@ -26,7 +26,7 @@ services:
       - ./postgresql/initUsers.sql:/docker-entrypoint-initdb.d/initUsers.sql
 
   container-users:
-    image: ooo4u/user-service-1.0.0
+    image: ooo4u/user-service:1.0.0
     container_name: container-users
     ports:
       - "8082:8080"
@@ -39,7 +39,7 @@ services:
       - DB_PASSWORD=password
 
   container-posts:
-    image: ooo4u/post-service-1.0.0
+    image: ooo4u/post-service:1.0.0
     container_name: container-posts
     ports:
       - "8081:8080"
