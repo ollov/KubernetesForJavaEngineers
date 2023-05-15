@@ -47,7 +47,7 @@ to build
 
 ___
 
-# STEP1/LESSON1 : building/deploying фдд app/db container using docker-compose
+# STEP1/LESSON1 : building/deploying all app/db container using docker-compose
 
     docker-compose up
     docker-compose down
