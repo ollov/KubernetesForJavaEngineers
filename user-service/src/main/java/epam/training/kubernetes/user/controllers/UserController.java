@@ -3,6 +3,8 @@ package epam.training.kubernetes.user.controllers;
 import epam.training.kubernetes.user.entities.User;
 import epam.training.kubernetes.user.exceptions.LimitReachedException;
 import epam.training.kubernetes.user.services.IUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ import java.util.List;
 @RequestMapping(path = "/users")
 public class UserController {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     private final IUserService userService;
 
     @Autowired
@@ -39,6 +42,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> find(final @PathVariable(value = "id") Long id) {
+        LOGGER.info("Find user for id {}", id);
         final User user = this.userService.getUserById(id);
         if (user == null) {
             return ResponseEntity.notFound().build();
@@ -48,6 +52,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> create(final @RequestBody User user) {
+        LOGGER.info("Create new user {}", user.getUsername());
         User newUser = userService.addUser(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -58,6 +63,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<User> update(final @PathVariable(value = "id") Long id, final @RequestBody User user) {
+        LOGGER.info("Update user with id {}, set name {}", id, user.getUsername());
         final User updatedUser = this.userService.updateUser(id, user);
         if (updatedUser == null) {
             return ResponseEntity.notFound().build();
@@ -67,6 +73,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(final @PathVariable(value = "id") Long id) {
+        LOGGER.info("Delete user with id {}", id);
         if(!this.userService.deleteUser(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -75,6 +82,7 @@ public class UserController {
 
     @PostMapping("/{id}/increment")
     public ResponseEntity<Void> incrementPosts(final @PathVariable(value = "id") Long id) {
+        LOGGER.info("Increment post for user id {}", id);
         if(!this.userService.incrementPosts(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -83,6 +91,7 @@ public class UserController {
 
     @PostMapping("/{id}/decrement")
     public ResponseEntity<Void> decrementPosts(final @PathVariable(value = "id") Long id) {
+        LOGGER.info("Decrement post for user id {}", id);
         if(!this.userService.decrementPosts(id)) {
             return ResponseEntity.notFound().build();
         }

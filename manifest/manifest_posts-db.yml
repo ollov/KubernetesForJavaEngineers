@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: k8s-program
+  name: posts-db-persistent-volume
+  labels:
+    type: local
+    app: posts-db
+spec:
+  claimRef:
+    namespace: k8s-program
+    name: posts-db-persistent-volume-claim
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /run/desktop/mnt/host/c/temp/data_posts
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: k8s-program
+  name: posts-db-persistent-volume-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: k8s-program
+  name: posts-db
+spec:
+  selector:
+    matchLabels:
+      app: posts-db
+  serviceName: posts-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: posts-db
+    spec:
+      containers:
+        - name: posts-db
+          image: postgres:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_DB
+              value: postgres
+            - name: POSTGRES_HOST_AUTH_METHOD
+              value: trust
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql/data"
+              name: posts-storage
+      volumes:
+        - name: posts-storage
+          persistentVolumeClaim:
+            claimName: posts-db-persistent-volume-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: k8s-program
+  name: posts-db
+  labels:
+    app: posts-db
+spec:
+  type: ClusterIP
+  selector:
+    app: posts-db
+  ports:
+    - port: 5432
+      targetPort: 5432

@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: k8s-program
+  name: users-db-persistent-volume
+  labels:
+    type: local
+    app: users-db
+spec:
+  claimRef:
+    namespace: k8s-program
+    name: users-db-persistent-volume-claim
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: /run/desktop/mnt/host/c/temp/data_users
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: k8s-program
+  name: users-db-persistent-volume-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: k8s-program
+  name: users-db
+spec:
+  selector:
+    matchLabels:
+      app: users-db
+  serviceName: users-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: users-db
+    spec:
+      containers:
+        - name: users-db
+          image: postgres:latest
+          env:
+            - name: POSTGRES_PASSWORD
+              value: password
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_DB
+              value: postgres
+            - name: POSTGRES_HOST_AUTH_METHOD
+              value: trust
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: "/var/lib/postgresql/data"
+              name: users-storage
+      volumes:
+        - name: users-storage
+          persistentVolumeClaim:
+            claimName: users-db-persistent-volume-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: k8s-program
+  name: users-db
+  labels:
+    app: users-db
+spec:
+  type: ClusterIP
+  selector:
+    app: users-db
+  ports:
+    - port: 5432
+      targetPort: 5432

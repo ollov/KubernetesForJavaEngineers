@@ -8,10 +8,6 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: k8training
-    ports:
-      - "5434:5432"
-    volumes:
-      - ./postgresql/initPosts.sql:/docker-entrypoint-initdb.d/initPosts.sql
 
   postgresql-container-users:
     image: postgres:latest
@@ -20,10 +16,6 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: k8training
-    ports:
-      - "5433:5432"
-    volumes:
-      - ./postgresql/initUsers.sql:/docker-entrypoint-initdb.d/initUsers.sql
 
   container-users:
     image: ooo4u/user-service:1.0.0

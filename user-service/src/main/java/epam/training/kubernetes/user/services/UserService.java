@@ -3,6 +3,8 @@ package epam.training.kubernetes.user.services;
 import epam.training.kubernetes.user.exceptions.LimitReachedException;
 import epam.training.kubernetes.user.repositories.UserRepository;
 import epam.training.kubernetes.user.entities.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
 
@@ -37,22 +41,26 @@ public class UserService implements IUserService {
 
     @Override
     public User updateUser(final Long id, final User user) {
+        LOGGER.info("Updating user for id {}", id);
         final User existingUser = userRepository.findById(id).orElse(null);
         if (existingUser != null) {
             existingUser.setUsername(user.getUsername());
             return userRepository.save(existingUser);
         } else {
+            LOGGER.info("Failed to find user for id {}", id);
             return null;
         }
     }
 
     @Override
     public boolean deleteUser(final Long id) {
+        LOGGER.info("Deleting user for id {}", id);
         final Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isPresent()) {
             userRepository.deleteById(id);
             return true;
         } else {
+            LOGGER.info("Failed to find user for id {}", id);
             return false;
         }
         //TODO Either do not remove user if there are posts or remove all posts for consistency
@@ -69,10 +77,12 @@ public class UserService implements IUserService {
     }
 
     private boolean updateAmountOfPosts(final Long id, final int delta) {
+        LOGGER.info("Updating user for id {}", id);
         final User existingUser = userRepository.findById(id).orElse(null);
         if (existingUser != null) {
             final long amountOfPosts = existingUser.getAmountOfPosts() + delta;
             if(amountOfPosts >= 0 && amountOfPosts <= Integer.MAX_VALUE) {
+                LOGGER.info("Setting amount {} for user for id {}", amountOfPosts, id);
                 existingUser.setAmountOfPosts(amountOfPosts);
                 userRepository.save(existingUser);
                 return true;
@@ -81,6 +91,7 @@ public class UserService implements IUserService {
                 throw new LimitReachedException(delta == 1 ? "maximun" : "minimum");
             }
         }
+        LOGGER.info("Failed to find user for id {}", id);
         return false;
     }
 

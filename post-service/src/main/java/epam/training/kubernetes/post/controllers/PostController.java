@@ -3,6 +3,8 @@ package epam.training.kubernetes.post.controllers;
 import epam.training.kubernetes.post.entities.Post;
 import epam.training.kubernetes.post.exceptions.AuthorNotFoundException;
 import epam.training.kubernetes.post.services.IPostService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ import java.util.List;
 @RequestMapping(path = "/posts")
 public class PostController {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(PostController.class);
+
     private final IPostService postService;
 
     @Autowired
@@ -39,6 +43,7 @@ public class PostController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Post> find(final @PathVariable(value = "id") Long id) {
+        LOGGER.info("Find post for id {}", id);
         final Post post = this.postService.getPostById(id);
         if (post == null) {
             return ResponseEntity.notFound().build();
@@ -48,6 +53,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> create(final @RequestBody Post post) {
+        LOGGER.info("Create new post {} for author {}", post.getText(), post.getAuthorId());
         Post newPost = this.postService.addPost(post);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -58,6 +64,7 @@ public class PostController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Post> update(final @PathVariable(value = "id") Long id, final @RequestBody Post post) {
+        LOGGER.info("Update post {} for id {}", post.getText(), id);
         final Post updatedPost = this.postService.updatePost(id, post);
         if (updatedPost == null) {
             return ResponseEntity.notFound().build();
@@ -67,6 +74,7 @@ public class PostController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(final @PathVariable(value = "id") Long id) {
+        LOGGER.info("Delete post with id {}", id);
         if(!this.postService.deletePost(id)) {
             return ResponseEntity.notFound().build();
         }

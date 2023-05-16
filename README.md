@@ -52,3 +52,32 @@ ___
     docker-compose up
     docker-compose down
 
+
+# STEP2/LESSON2 : building/deploying all app/db container using docker-compose
+
+rebuild both services
+
+    ./mvnw clean package -Dspring.profiles.active=local -Dmaven.test.skip=true
+
+rebuld and push both imnages
+
+    docker build -t ooo4u/user-service:1.0.0 ./
+    docker push ooo4u/user-service:1.0.0
+    docker build -t ooo4u/post-service:1.0.0 ./
+    docker push ooo4u/post-service:1.0.0
+
+
+Changes in postman collection: new ports 
+
+    localhost:30081/posts
+    localhost:30082/users
+
+All yaml files are in project\manifest\
+
+    pls verify PersistentVolum's hostPaths
+
+Deploy/undeploy 
+    
+    project\manifest\apply.cmd
+    project\manifest\delete.cmd
+
