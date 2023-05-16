@@ -59,7 +59,7 @@ rebuild both services
 
     ./mvnw clean package -Dspring.profiles.active=local -Dmaven.test.skip=true
 
-rebuld and push both imnages
+rebuild and push both images
 
     docker build -t ooo4u/user-service:1.0.0 ./
     docker push ooo4u/user-service:1.0.0
@@ -70,7 +70,7 @@ rebuld and push both imnages
 Changes in postman collection: new ports 
 
     localhost:30081/posts
-    localhost:30082/users
+    localhost:30080/users
 
 All yaml files are in project\manifest\
 
