@@ -56,16 +56,12 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: docker
-            - name: DB_URL
+            - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://users-db:5432/postgres
-            - name: DB_USER
+            - name: SPRING_DATASOURCE_USERNAME
               value: postgres
-            - name: POSTGRES_PASSWORD
-              value: password
-          resources:
-            limits:
-              memory: 1Gi
-              cpu: "1"
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: postgres
           volumeMounts:
             - mountPath: "/var/log"
               name: users-storage
