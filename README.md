@@ -53,7 +53,7 @@ ___
     docker-compose down
 
 
-# STEP2/LESSON2 : building/deploying all app/db container using docker-compose
+# STEP2/LESSON2 : building/deploying all app/db container using kubernatis
 
 rebuild both services
 
@@ -81,3 +81,28 @@ Deploy/undeploy
     project\manifest\apply.cmd
     project\manifest\delete.cmd
 
+
+# STEP3/LESSON3 : 
+
+rebuild both services
+
+    ./mvnw clean package -Dspring.profiles.active=local -Dmaven.test.skip=true
+
+rebuild and push both images
+
+    cd ./user-service/ 
+    docker build -t ooo4u/user-service:1.0.0 ./
+    docker push ooo4u/user-service:1.0.0
+    cd ..
+    cd ./post-service/
+    docker build -t ooo4u/post-service:1.0.0 ./
+    docker push ooo4u/post-service:1.0.0
+
+All yaml files are in project\manifest\
+
+    pls verify PersistentVolum's hostPaths
+
+Deploy/undeploy
+
+    project\manifest\apply.cmd
+    project\manifest\delete.cmd

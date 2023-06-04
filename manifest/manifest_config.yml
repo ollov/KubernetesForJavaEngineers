@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-config
+  namespace: k8s-program
+data:
+  POSTGRES_DB: postgres
+  POSTS_DB_URL: jdbc:postgresql://posts-db:5432/postgres
+  USERS_DB_URL: jdbc:postgresql://users-db:5432/postgres
+  USERS_URL: http://users-service:8080
+  POSTS_SCHEMA_SQL: |
+    CREATE TABLE IF NOT EXISTS POSTS (
+      POST_ID SERIAL PRIMARY KEY,
+      USER_ID INTEGER NOT NULL,
+      POST_TEXT TEXT NOT NULL,
+      CREATED_AT DATE NOT NULL
+    );
+    CREATE SEQUENCE IF NOT EXISTS POST_SEQUENCE START 1 INCREMENT 1;
+  USERS_SCHEMA_SQL: |
+    CREATE TABLE IF NOT EXISTS USERS (
+      USER_ID SERIAL PRIMARY KEY,
+      USER_NAME VARCHAR(255) NOT NULL,
+      AMOUNT_OF_POSTS INTEGER NOT NULL
+    );
+    CREATE SEQUENCE IF NOT EXISTS USER_SEQUENCE START 1 INCREMENT 1;

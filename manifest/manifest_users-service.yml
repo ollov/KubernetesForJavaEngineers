@@ -54,14 +54,21 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: docker
             - name: SPRING_DATASOURCE_URL
-              value: jdbc:postgresql://users-db:5432/postgres
+              valueFrom:
+                configMapKeyRef:
+                  name: k8s-config
+                  key: USERS_DB_URL
             - name: SPRING_DATASOURCE_USERNAME
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
             - name: SPRING_DATASOURCE_PASSWORD
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
           volumeMounts:
             - mountPath: "/var/log"
               name: users-storage
