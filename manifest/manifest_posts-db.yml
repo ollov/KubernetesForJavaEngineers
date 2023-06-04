@@ -17,6 +17,24 @@ spec:
       containers:
         - name: posts-db
           image: postgres:latest
+          readinessProbe:
+            exec:
+              command:
+                - bash
+                - "-c"
+                - "pg_isready -U$POSTGRES_USER"
+          livenessProbe:
+            exec:
+              command:
+                - bash
+                - "-c"
+                - "pg_isready -U$POSTGRES_USER"
+          startupProbe:
+            exec:
+              command:
+                - bash
+                - "-c"
+                - "pg_isready -U$POSTGRES_USER"
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:

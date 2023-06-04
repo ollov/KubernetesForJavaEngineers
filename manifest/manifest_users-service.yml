@@ -51,6 +51,33 @@ spec:
       containers:
         - name: users-service
           image: ooo4u/user-service:1.0.0
+          livenessProbe:
+            httpGet:
+              path: "/actuator/health/liveness"
+              port: 8080
+            #If app fails 3 consecutive health checks, 20 seconds apart, reboot the container
+            successThreshold: 1
+            failureThreshold: 3
+            periodSeconds: 20
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: "/actuator/health/readiness"
+              port: 8080
+            #Ping the app every 5 seconds to make sure it's healthy. If fail two subsequent pings, cordone it off
+            successThreshold: 2
+            failureThreshold: 2
+            periodSeconds: 10
+            timeoutSeconds: 5
+          startupProbe:
+            httpGet:
+              path: "/actuator/health/liveness"
+              port: 8080
+            #Check it every 5 seconds (give up after 5 sec) for up to 100s before k8s gets into a crash loop.
+            successThreshold: 1
+            failureThreshold: 10
+            periodSeconds: 5
+            timeoutSeconds: 5
           ports:
             - containerPort: 8080
           env:
