@@ -76,6 +76,7 @@ public class PostService implements IPostService {
         final Post existingPost = postRepository.findById(id).orElse(null);
         if (existingPost != null) {
             existingPost.setText(post.getText());
+            existingPost.setTopic(post.getTopic());
             return postRepository.save(existingPost);
         } else {
             LOGGER.info("Failed to find post for id {}", id);

@@ -72,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"authorId\": 1,\r\n    \"text\": \"Hi friends, I recently watched amazing movie at the cinema 2\"\r\n}",
+							"raw": "{\r\n    \"authorId\": 1,\r\n    \"text\": \"Hi friends, I recently watched amazing movie at the cinema 2\",\r\n    \"topic\": \"some topic\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

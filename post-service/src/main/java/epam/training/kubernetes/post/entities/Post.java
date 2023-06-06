@@ -40,13 +40,17 @@ public class Post {
     @Column(name = "CREATED_AT")
     private LocalDate postedAt = LocalDate.now();
 
+    @Column(name = "TOPIC")
+    private String topic;
+
     public Post() {
     }
 
-    public Post(Long authorId, String text) {
+    public Post(Long authorId, String text, String topic) {
         this.authorId = authorId;
         this.text = text;
         this.postedAt = LocalDate.now();
+        this.topic = topic;
     }
 
     public Long getId() {
@@ -79,6 +83,14 @@ public class Post {
 
     public void setPostedAt(LocalDate postedAt) {
         this.postedAt = postedAt;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     @Override

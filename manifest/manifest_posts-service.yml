@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: posts-service
-          image: ooo4u/post-service:1.0.0
+          image: ooo4u/post-service:1.0.1
           livenessProbe:
             httpGet:
               path: "/actuator/health/liveness"
@@ -66,7 +66,11 @@ spec:
                 configMapKeyRef:
                   name: k8s-config
                   key: USERS_URL
-
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
 ---
 apiVersion: v1
 kind: Service
