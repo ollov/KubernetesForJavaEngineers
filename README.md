@@ -106,3 +106,18 @@ Deploy/undeploy
 
     project\manifest\apply.cmd
     project\manifest\delete.cmd
+
+
+Task 4 details
+
+    to see the history of deployments:
+      kubectl rollout history deployment.apps/posts-service -n=k8s-program
+
+        results will be like below
+        deployment.apps/posts-service
+        REVISION  CHANGE-CAUSE
+        1         <none>
+        2         <none>
+
+    to roll back to previous version of deployment:
+      kubectl rollout undo deployment.apps/posts-service -n=k8s-program
