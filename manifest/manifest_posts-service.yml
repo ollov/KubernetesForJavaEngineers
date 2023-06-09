@@ -36,9 +36,10 @@ spec:
             timeoutSeconds: 5
           startupProbe:
             httpGet:
-              path: "/actuator/health/liveness"
+              path: "/greeting"
               port: 8080
             #Check it every 5 seconds (give up after 5 sec) for up to 100s before k8s gets into a crash loop.
+            initialDelaySeconds: 30
             successThreshold: 1
             failureThreshold: 10
             periodSeconds: 5
