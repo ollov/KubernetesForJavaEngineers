@@ -124,3 +124,19 @@ result will be like below:
 to roll back to previous version of deployment:
 
       kubectl rollout undo deployment.apps/posts-service -n=k8s-program
+
+
+# STEP4/LESSON4 :
+
+adding Chart.yaml, values.yaml and copy *.yaml to templates
+
+install
+
+    cd project\helm.chart
+    helm install k8s-program .
+
+uninstall
+
+    helm uninstall k8s-programhel
+
+    

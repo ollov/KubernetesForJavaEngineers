@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: k8s-program
+  name: posts-db
+spec:
+  selector:
+    matchLabels:
+      app: posts-db
+  serviceName: posts-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: posts-db
+    spec:
+      containers:
+        - name: posts-db
+          image: postgres:latest
+          readinessProbe:
+            exec:
+              command:
+                - bash
+                - "-c"
+                - "pg_isready -U$POSTGRES_USER"
+          livenessProbe:
+            exec:
+              command:
+                - bash
+                - "-c"
+                - "pg_isready -U$POSTGRES_USER"
+          startupProbe:
+            exec:
+              command:
+                - bash
+                - "-c"
+                - "pg_isready -U$POSTGRES_USER"
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: k8s-config
+                  key: POSTGRES_DB
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: posts-storage
+              mountPath: "/var/lib/postgresql/data"
+            - name: posts-init
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: posts-init
+          configMap:
+            name: k8s-config
+            items:
+              - key: POSTS_SCHEMA_SQL
+                path: "posts-schema.sql"
+  volumeClaimTemplates:
+    - metadata:
+        name: posts-storage
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: hostpath
+        resources:
+          requests:
+            storage: 1Gi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: k8s-program
+  name: posts-db
+  labels:
+    app: posts-db
+spec:
+  type: ClusterIP
+  selector:
+    app: posts-db
+  ports:
+    - port: 5432
+      targetPort: 5432
