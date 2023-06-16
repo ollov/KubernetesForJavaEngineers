@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: k8s-config
-  namespace: k8s-program
+  namespace: {{ .Values.namespace }}
 data:
   POSTGRES_DB: postgres
   POSTS_DB_URL: jdbc:postgresql://posts-db:5432/postgres

@@ -65,6 +65,12 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.26" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.26" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.26" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-actuator:2.7.10" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator-autoconfigure:2.7.10" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-actuator:2.7.10" level="project" />
+    <orderEntry type="library" name="Maven: io.micrometer:micrometer-core:1.9.9" level="project" />
+    <orderEntry type="library" name="Maven: org.hdrhistogram:HdrHistogram:2.1.12" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.latencyutils:LatencyUtils:2.0.3" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.postgresql:postgresql:42.3.8" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.checkerframework:checker-qual:3.5.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:2.7.10" level="project" />

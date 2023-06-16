@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: k8s-program
+  namespace: {{ .Values.namespace }}
   name: posts-service
 spec:
   selector:
     matchLabels:
       app: posts-service-pod
-  replicas: 2
+  replicas: {{ .Values.service.replicaCount }}
   template:
     metadata:
       labels:
@@ -76,7 +76,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: k8s-program
+  namespace: {{ .Values.namespace }}
   name: posts-service
 spec:
   type: NodePort
