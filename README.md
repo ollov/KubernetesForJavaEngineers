@@ -137,6 +137,10 @@ install
 
 uninstall
 
-    helm uninstall k8s-programhel
+    helm uninstall k8s-program
+
+change service.replicaCount in  values.yaml
+
+    helm install k8s-program .
 
     
