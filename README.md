@@ -128,6 +128,8 @@ to roll back to previous version of deployment:
 
 # STEP4/LESSON4 :
 
+## Task 1 details
+
 adding Chart.yaml, values.yaml and copy *.yaml to templates
 
 install
@@ -143,4 +145,10 @@ change service.replicaCount in  values.yaml
 
     helm install k8s-program .
 
-    
+
+## Task 2 details
+
+adding _helpers.tpl
+
+manifest_config.yml uses values as labels from helm _helpers.tpl file.
+

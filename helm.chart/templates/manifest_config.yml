@@ -3,6 +3,9 @@ kind: ConfigMap
 metadata:
   name: k8s-config
   namespace: {{ .Values.namespace }}
+  labels:
+    date: {{ include "k8s.currentDate" . }}
+    version: {{ include "k8s.version" . }}
 data:
   POSTGRES_DB: postgres
   POSTS_DB_URL: jdbc:postgresql://posts-db:5432/postgres
