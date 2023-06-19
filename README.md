@@ -130,7 +130,7 @@ to roll back to previous version of deployment:
 
 ## Task 1 details
 
-adding Chart.yaml, values.yaml and copy *.yaml to templates
+adding Chart.yaml, values.yaml and copy old *.yaml (lesson3 manifest folder) to templates
 
 install
 
