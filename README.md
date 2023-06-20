@@ -152,3 +152,46 @@ adding _helpers.tpl
 
 manifest_config.yml uses values as labels from helm _helpers.tpl file.
 
+
+# STEP5/LESSON5 :
+
+## Install ingress controller using helm chart 
+    
+    helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+    helm repo update
+    helm install k8s-ingress ingress-nginx/ingress-nginx --namespace ingress --set controller.replicaCount=2
+    
+not used / just to remind
+
+    kubectl get ingress k8s-ingress -n=k8s-program
+    kubectl describe ingress k8s-ingress -n=k8s-program
+    kubectl get ingressClass
+    kubectl get ValidatingWebhookConfiguration
+
+
+## Change services users-service and posts-service to be type ClusterIP
+
+    helm.chart/templates/manifest_posts-service.yml
+    helm.chart/templates/manifest_users-service.yml
+
+## Create ingress resource and route your traffic using rules.
+
+    kubectl apply -f manifest_ingress.yml
+    
+## Configure rewrite-target of path using annotations
+
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$2
+    
+    paths:
+          - path: /posts(/|$)(.*)
+
+
+you will be able access 
+
+    localhost/users/greeting
+    localhost/users/users
+
+    localhost/posts/greeting
+    localhost/posts/posts
+

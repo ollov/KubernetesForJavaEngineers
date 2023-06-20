@@ -2,4 +2,4 @@ namespace: k8s-program
 db:
   replicaCount: 1
 service:
-  replicaCount: 3
+  replicaCount: 2
